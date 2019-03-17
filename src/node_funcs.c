@@ -12,6 +12,12 @@
 
 #include "lem_in.h"
 
+/*
+** Creates a new node 
+** params: val in void pointer
+** returns: new node <t_node>
+*/
+
 t_node	*new_node(void *val)
 {
 	t_node	*node;

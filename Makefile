@@ -30,7 +30,7 @@ FLAGS = -Wall -Werror -Wextra
 # Source files for all
 
 SRCS =  $(addprefix $(SRCSDIR)/,\
-		lem_in.c input.c linked_funcs.c node_funcs.c) 
+		lem_in.c input.c linked_funcs.c node_funcs.c hash_table.c) 
 
 LIBFTSRCS = $(addprefix $(LIBFTDIR)/,\
 			checks_after_percentage.c ft_atoi.c ft_bzero.c ft_count_words.c \
