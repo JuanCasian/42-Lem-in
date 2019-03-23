@@ -13,6 +13,22 @@
 #include "lem_in.h"
 
 /*
+** Creates a new node 
+** params: string
+** returns: new node <t_node>
+*/
+
+t_node	*new_node(char *val)
+{
+	t_node	*node;
+	if (!(node = (t_node*)malloc(sizeof(t_node))))
+		return (NULL);
+	node->val = ft_strdup(val);
+	node->next = NULL;
+	return (node);
+}
+
+/*
 ** params: none
 ** return: new linked list
 */

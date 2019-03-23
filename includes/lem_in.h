@@ -13,55 +13,45 @@
 #ifndef LEM_IN_H
 
 # define LEM_IN_H
+# define FD STDIN_FILENO
 
 #include "libft.h"
 
-typedef struct 		s_node
+typedef struct		s_node
 {
-	void			*val;
-	struct s_node 	*next;
+	char			*val;
+	struct s_node	*next;
 }					t_node;
 
 typedef struct		s_linked
 {
 	t_node			*head;
 	t_node			*tail;
-	int 			len;
+	int				len;
 }					t_linked;
 
-typedef struct		s_hash_item
+typedef struct		s_lem
 {
-	char			*key;
-	void			*val;
-}					t_hash_item;
+	int 			n_ants;
+	t_linked		*rooms;
+	t_linked		*edges;
+}					t_lem;
 
-typedef struct		s_hash_table
-{
-	t_hash_item		**items;
-	int				size;
-}					t_hash_table;
 
-/*
-** hash_table functions
-*/
 
-t_hash_table	*hash_new_table(int size);
-t_hash_item		*hash_new_item();
-int				hash_insert();
-int				hash_delete();
-void			hash_display();
+t_lem				*parse_input(void);
+t_lem				*init_info(void);
+int					is_comment(char *str);
+int					is_numeric(char *str);
 
 /*
 ** Linked list functions
 */
 
-t_node			*new_node(void *val);
-t_linked		*new_linked(void);
-int				add_fnode(t_linked *list, t_node *node);
-int				add_bnode(t_linked *list, t_node *node);
-t_node			*fpop(t_linked *list);
-
-
-void			input(void);
+t_node				*new_node(char *val);
+t_linked			*new_linked(void);
+int					add_fnode(t_linked *list, t_node *node);
+int					add_bnode(t_linked *list, t_node *node);
+t_node				*fpop(t_linked *list);
 
 #endif

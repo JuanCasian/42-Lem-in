@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node_funcs.c                                       :+:      :+:    :+:   */
+/*   lem_struct_funcs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcasian <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 19:18:27 by jcasian           #+#    #+#             */
-/*   Updated: 2019/03/15 19:18:27 by jcasian          ###   ########.fr       */
+/*   Created: 2019/03/23 13:10:29 by jcasian           #+#    #+#             */
+/*   Updated: 2019/03/23 13:10:29 by jcasian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-** Creates a new node 
-** params: val in void pointer
-** returns: new node <t_node>
+** Initialize the information structure
+** Params: None
+** Returns: t_lem object initialized
 */
 
-t_node	*new_node(void *val)
+t_lem	*init_info(void)
 {
-	t_node	*node;
-	if (!(node = (t_node*)malloc(sizeof(t_node))))
+	t_lem	*info;
+
+	if (!(info = (t_lem*)malloc(sizeof(t_lem))))
 		return (NULL);
-	node->val = val;
-	node->next = NULL;
-	return (node);
+	info->n_ants = -1;
+	info->rooms = NULL;
+	info->edges = NULL;
+	return (info);
 }
