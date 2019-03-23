@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_hash.c                                     :+:      :+:    :+:   */
+/*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcasian <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 16:14:44 by jcasian           #+#    #+#             */
-/*   Updated: 2019/03/22 16:14:44 by jcasian          ###   ########.fr       */
+/*   Created: 2019/03/22 21:18:03 by jcasian           #+#    #+#             */
+/*   Updated: 2019/03/22 21:18:03 by jcasian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	hash_display(t_hash_table *table)
+t_lem	*init_info(void)
 {
-	t_hash_item *tmp;
-	int			i;
+	t_lem	*info;
 
-	i = -1;
-	while (++i < table->size)
-	{
-		if (table->items[i] != NULL)
-		{
-			tmp = table->items[i];
-			while (tmp)
-			{
-				ft_printf("(index: %i)\t[%s]\t\t%s\n", i, tmp->key, tmp->val);
-				tmp = tmp->next;
-			}
-		}
-	}
+	if (!(info = (t_lem*)malloc(sizeof(t_lem))))
+		return (NULL);
+	info->n_ants = -1;
+	info->table = NULL;
+	info->input = NULL;
+	info->rooms = NULL;
+	info->con = NULL;
+	return (info);
 }

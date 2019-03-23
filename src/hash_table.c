@@ -12,17 +12,17 @@
 
 #include "lem_in.h"
 
-int				hash_function(char *key, int size)
+unsigned int		hash_function(char *key, int size)
 {
-	int	hash;
-	int	c;
+	unsigned int	hash;
+	unsigned int	c;
 
 	hash = 5385;
-	while (c = (int)*key++)
+	while ((c = (int)*key++))
 	{
 		hash = ((hash << 5) + hash) + c;
 	}
-	return (hash / size);
+	return (hash % size);
 }
 
 t_hash_table	*hash_new_table(int size)
@@ -59,9 +59,9 @@ t_hash_item		*hash_new_item(char *key, void *val)
 
 int				hash_insert(t_hash_table *table, char *key, void *val)
 {
-	t_hash_item	*item;
-	int			index;
-	t_hash_item *tmp;
+	t_hash_item		*item;
+	unsigned int	index;
+	t_hash_item 	*tmp;
 
 	if (!(item = hash_new_item(key, val)))
 		return (0);
@@ -77,14 +77,14 @@ int				hash_insert(t_hash_table *table, char *key, void *val)
 		tmp = tmp->next;
 	}
 	item->next = table->items[index];
-	table->items[index] = item->next;
+	table->items[index] = item;
 	return (1);	
 }
 
-t_hash_item		hash_search(t_hash_table *table, char *key)
+t_hash_item		*hash_search(t_hash_table *table, char *key)
 {
-	int			index;
-	t_hash_item	*tmp;
+	unsigned int	index;
+	t_hash_item		*tmp;
 	
 	index = hash_function(key, table->size);
 	tmp = table->items[index];

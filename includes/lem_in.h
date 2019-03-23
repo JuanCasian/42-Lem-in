@@ -42,6 +42,16 @@ typedef struct		s_hash_table
 	int				size;
 }					t_hash_table;
 
+
+typedef struct		s_lem
+{
+	int				n_ants;
+	t_hash_table	*table;
+	t_linked		*input;
+	t_linked		*rooms;
+	t_linked		*con;
+
+}					t_lem;
 /*
 ** hash_table functions
 */
@@ -49,10 +59,9 @@ typedef struct		s_hash_table
 t_hash_table	*hash_new_table(int size);
 t_hash_item		*hash_new_item(char *key, void *val);
 int				hash_insert(t_hash_table *table, char *key, void *val);
-void			hash_display();
-t_hash_item		hash_search(t_hash_table *table, char *key);
-
-int				hash_function(char *key, int size);
+void			hash_display(t_hash_table *table);
+t_hash_item		*hash_search(t_hash_table *table, char *key);
+unsigned int	hash_function(char *key, int size);
 
 /*
 ** Linked list functions
@@ -65,6 +74,8 @@ int				add_bnode(t_linked *list, t_node *node);
 t_node			*fpop(t_linked *list);
 
 
-void			input(void);
+t_lem			*input(void);
+t_lem			*init_info(void);
+
 
 #endif
