@@ -23,7 +23,11 @@ t_node	*new_node(char *val)
 	t_node	*node;
 	if (!(node = (t_node*)malloc(sizeof(t_node))))
 		return (NULL);
-	node->val = ft_strdup(val);
+	if (!(node->val = ft_strdup(val)))
+	{
+		free(node);
+		return (NULL);
+	}
 	node->next = NULL;
 	return (node);
 }

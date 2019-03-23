@@ -56,3 +56,19 @@ int	is_comment(char *str)
 		return (1);
 	return (0);
 }
+
+/*
+** Checks if the string is a known command, commands appear with double ##
+** Params: String to check
+** Returns: 1 if it is a known command || -1 if it is a unkown command
+** 				|| 0 if it is not a command
+*/
+
+int		is_comand(char *str)
+{
+	int	len;
+
+	if ((len = ft_strlen(str)) < 2)
+		return (0);
+	if (!ft_strcmp)
+}

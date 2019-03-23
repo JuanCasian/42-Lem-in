@@ -40,9 +40,22 @@ typedef struct		s_lem
 
 
 t_lem				*parse_input(void);
+
+/*
+** information structure function(s)
+*/
+
 t_lem				*init_info(void);
+
+/*
+** Input is functions
+*/
+
 int					is_comment(char *str);
 int					is_numeric(char *str);
+int					is_command(char *str);
+int					is_room(char *str);
+int					is_link(char *str);
 
 /*
 ** Linked list functions
