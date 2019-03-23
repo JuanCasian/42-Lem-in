@@ -64,11 +64,76 @@ int	is_comment(char *str)
 ** 				|| 0 if it is not a command
 */
 
-int		is_comand(char *str)
+int	is_comand(char *str)
 {
 	int	len;
 
 	if ((len = ft_strlen(str)) < 2)
 		return (0);
-	if (!ft_strcmp)
+	if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
+		return (1);
+	if (str[0] == '#' && str[1] == '#')
+		return (-1);
+	return (0);
+}
+
+/*
+** Check if the string is a room
+** Params: string to check
+** Returns: 1 if it is a room || 0 if is not
+*/
+
+int is_room(char *str)
+{
+	int spaces;
+	int numbers;
+	int i;
+
+	i = 0;
+	spaces = 0;
+	numbers = 0;
+	while (str[i] && !ft_is_space(str[i]))
+		i++;
+	while (str[i] && ft_is_space(str[i++]))
+		spaces += 1;
+	if (str[i] && ft_isdigit(str[i]))
+		numbers += 1;
+	while(str[i] && ft_isdigit(str[i]))
+		i++;
+	while (str[i] && ft_is_space(str[i++]))
+		spaces += 1;
+	if (str[i] && ft_isdigit(str[i]))
+		numbers += 1;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	if (!str[i] && numbers == 2 && spaces == 2)
+		return (1);
+	return (0);
+}
+
+/*
+** Checks if the string is a valid link between 2 nodes
+** Params: string to check
+** Returns: 1 if is valid || 0 if it is not
+*/
+
+int	is_link(char *str)
+{
+	int bars;
+	int i;
+
+	bars = 0;
+	i = 0;
+	while (str[i] && str[i] != '-')
+		i++;
+	while (str[i] && str[i] == '-')
+	{
+		i++;
+		bars += 1;
+	}
+	while (str[i] && str[i] != '-')
+		i++;
+	if (!str[i] && bars == 1)
+		return (1);
+	return (0);
 }

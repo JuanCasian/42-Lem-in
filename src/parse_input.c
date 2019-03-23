@@ -60,6 +60,7 @@ static int	get_strings(t_lem *info)
 	while (res != 0)
 	{
 		if (!is_comment(line))
+		{
 			if (is_room(line) || (is_command(line) == 1))
 			{
 				if (!add_bnode(info->rooms, new_node(line)))
@@ -73,6 +74,7 @@ static int	get_strings(t_lem *info)
 			else if (is_command(line) == 0)
 				return (0);
 			res = get_next_line_sin(FD, &line);
+		}
 	}
 	return (1);
 }
@@ -87,10 +89,25 @@ static int	get_strings(t_lem *info)
 t_lem		*parse_input(void)
 {
 	t_lem	*info;
+	t_node	*tmp;
 
 	if (!(info = init_info()) || ((info->n_ants = get_num_ants()) == -1))
 		return (NULL);
 	if (!get_strings(info))
 		return (NULL);
+	tmp = info->rooms->head;
+	ft_printf("Rooms:\n");
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->val);
+		tmp = tmp->next;
+	}
+	ft_printf("Edges:\n");
+	tmp = info->edges->head;
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->val);
+		tmp = tmp->next;
+	}
 	return (info);
 }
