@@ -13,7 +13,7 @@
 #ifndef LEM_IN_H
 
 # define LEM_IN_H
-# define FD STDIN_FILENO
+# define FD 3
 
 #include "libft.h"
 
@@ -30,11 +30,45 @@ typedef struct		s_linked
 	int				len;
 }					t_linked;
 
+typedef struct		s_edge
+{
+	struct s_room	*room;
+	struct s_edge	*next;
+}					t_edge;
+
+typedef struct		s_rooom
+{
+	char*			name;
+	int				x;
+	int				y;
+	struct t_edge	*edge;
+	int				visited;
+	int				selected;
+	struct s_room	*parent;
+}					t_room;
+
+typedef struct		s_hash_item
+{
+	char				*key;
+	void				*val;
+	struct s_hash_item	*next;
+}					t_hash_item;
+
+typedef struct		s_hash_table
+{
+	t_hash_item		**items;
+	int				size;
+}					t_hash_table;
+
+
+
 typedef struct		s_lem
 {
 	int 			n_ants;
 	t_linked		*rooms;
 	t_linked		*edges;
+	t_room			*start;
+	t_room			*end;
 }					t_lem;
 
 

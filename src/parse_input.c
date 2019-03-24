@@ -54,11 +54,12 @@ static int	get_strings(t_lem *info)
 	int		res;
 	char	*line;
 
-	if (!(info->rooms = new_linked()) || !(info->edges = new_linked()) ||
-		((res = get_next_line_sin(FD, &line)) < 0))
+	if (!(info->rooms = new_linked()) || !(info->edges = new_linked()))
 		return (0);
-	while (res != 0)
+	while ((res = get_next_line_sin(FD, &line)) > 0)
 	{
+		if (!ft_strcmp(line, ""))
+			return (1);
 		if (!is_comment(line))
 		{
 			if (is_room(line) || (is_command(line) == 1))
@@ -73,7 +74,6 @@ static int	get_strings(t_lem *info)
 			}
 			else if (is_command(line) == 0)
 				return (0);
-			res = get_next_line_sin(FD, &line);
 		}
 	}
 	return (1);
@@ -91,9 +91,10 @@ t_lem		*parse_input(void)
 	t_lem	*info;
 	t_node	*tmp;
 
+	open("./res/testmap", O_RDWR);
 	if (!(info = init_info()) || ((info->n_ants = get_num_ants()) == -1))
 		return (NULL);
-	if (!get_strings(info))
+	if (!get_strings(info) || !(info->edges->head) || !(info->rooms->head))
 		return (NULL);
 	tmp = info->rooms->head;
 	ft_printf("Rooms:\n");

@@ -64,7 +64,7 @@ int	is_comment(char *str)
 ** 				|| 0 if it is not a command
 */
 
-int	is_comand(char *str)
+int	is_command(char *str)
 {
 	int	len;
 
@@ -87,26 +87,30 @@ int is_room(char *str)
 {
 	int spaces;
 	int numbers;
-	int i;
 
-	i = 0;
 	spaces = 0;
 	numbers = 0;
-	while (str[i] && !ft_is_space(str[i]))
-		i++;
-	while (str[i] && ft_is_space(str[i++]))
+	while (*str && !ft_is_space(*str))
+		str++;
+	while (*str && ft_is_space(*str))
+	{
 		spaces += 1;
-	if (str[i] && ft_isdigit(str[i]))
+		str++;
+	}
+	if (*str && ft_isdigit(*str))
 		numbers += 1;
-	while(str[i] && ft_isdigit(str[i]))
-		i++;
-	while (str[i] && ft_is_space(str[i++]))
+	while(*str && ft_isdigit(*str))
+		str++;
+	while (*str && ft_is_space(*str))
+	{
 		spaces += 1;
-	if (str[i] && ft_isdigit(str[i]))
+		str++;
+	}
+	if (*str && ft_isdigit(*str))
 		numbers += 1;
-	while (str[i] && ft_isdigit(str[i]))
-		i++;
-	if (!str[i] && numbers == 2 && spaces == 2)
+	while (*str && ft_isdigit(*str))
+		str++;
+	if (!(*str) && numbers == 2 && spaces == 2)
 		return (1);
 	return (0);
 }
