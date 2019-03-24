@@ -62,7 +62,7 @@ static int	get_strings(t_lem *info)
 			return (1);
 		if (!is_comment(line))
 		{
-			if (is_room(line) || (is_command(line) == 1))
+			if (is_room(line) || (is_command(line) >= 1))
 			{
 				if (!add_bnode(info->rooms, new_node(line)))
 					return (0);
@@ -80,6 +80,43 @@ static int	get_strings(t_lem *info)
 }
 
 /*
+** Creates the rooms hashtable to make it faster to add the links,
+** and adds it to the information structure
+** Params: information structure
+** Returns: 1 if all went good || 0 if it didn't
+*/
+
+static int	create_rooms_ht(t_lem *info)
+{
+	t_node	*tmp;
+	int		flag;
+	t_room	*room;
+
+	if (!(info->ht = hash_new_table(info->rooms->len)))
+		return (0);
+	tmp = info->rooms->head;
+	while (tmp)
+	{
+		if ((flag = is_command(tmp->val)) >= 1)
+		{
+			if (!(tmp = tmp->next) || !(room = new_room(tmp->val)) ||
+				!(hash_insert(info->ht, room->name, room)))
+				return (0);
+			info->start = (flag == 1 ? room : info->start);
+			info->end = (flag == 2 ? room : info->end);
+		}
+		else
+		{
+			if (!(room = new_room(tmp->val)) ||
+				!(hash_insert(info->ht, room->name, room)))
+				return (0);
+		}
+		tmp = tmp->next;
+	}
+	return ((info->start && info->end) ? 1 : 0);
+}
+
+/*
 ** Reads the input from the standard in and parses it to get the
 ** information required to solve the problem
 ** Params: None
@@ -89,26 +126,14 @@ static int	get_strings(t_lem *info)
 t_lem		*parse_input(void)
 {
 	t_lem	*info;
-	t_node	*tmp;
 
 	open("./res/testmap", O_RDWR);
 	if (!(info = init_info()) || ((info->n_ants = get_num_ants()) == -1))
 		return (NULL);
 	if (!get_strings(info) || !(info->edges->head) || !(info->rooms->head))
 		return (NULL);
-	tmp = info->rooms->head;
-	ft_printf("Rooms:\n");
-	while (tmp)
-	{
-		ft_printf("%s\n", tmp->val);
-		tmp = tmp->next;
-	}
-	ft_printf("Edges:\n");
-	tmp = info->edges->head;
-	while (tmp)
-	{
-		ft_printf("%s\n", tmp->val);
-		tmp = tmp->next;
-	}
+	if (!create_rooms_ht(info))
+		return (NULL);
+	hash_display(info->ht);
 	return (info);
 }

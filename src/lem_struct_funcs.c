@@ -27,5 +27,8 @@ t_lem	*init_info(void)
 	info->n_ants = -1;
 	info->rooms = NULL;
 	info->edges = NULL;
+	info->start = NULL;
+	info->end = NULL;
+	info->ht = NULL;
 	return (info);
 }

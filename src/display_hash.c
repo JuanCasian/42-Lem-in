@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   display_hash.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcasian <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/11 19:46:31 by jcasian           #+#    #+#             */
-/*   Updated: 2018/08/04 21:25:20 by jcasian          ###   ########.fr       */
+/*   Created: 2019/03/22 16:14:44 by jcasian           #+#    #+#             */
+/*   Updated: 2019/03/22 16:14:44 by jcasian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-char	*ft_strnew(size_t size)
+void	hash_display(t_hash_table *table)
 {
-	char	*str;
-	size_t	i;
+	t_hash_item *tmp;
+	int			i;
 
-	i = 0;
-	if (!(str = (char*)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	while (i <= size)
+	i = -1;
+	while (++i < table->size)
 	{
-		str[i] = '\0';
-		i++;
+		if (table->items[i] != NULL)
+		{
+			tmp = table->items[i];
+			while (tmp)
+			{
+				ft_printf("(index: %i)\t[%s]\t\t%p\n", i, tmp->key, tmp->room);
+				tmp = tmp->next;
+			}
+		}
 	}
-	return (str);
 }

@@ -38,7 +38,8 @@ char		**ft_strsplit(char const *s, char c)
 
 	k = 0;
 	n_strs = count_strs((char*)s, c);
-	res = (char**)malloc(sizeof(char*) * n_strs + 1);
+	if (!(res = (char**)malloc(sizeof(char*) * n_strs + 1)))
+		return (NULL);
 	while (k < n_strs)
 	{
 		i = 0;
@@ -46,7 +47,8 @@ char		**ft_strsplit(char const *s, char c)
 			s++;
 		while (s[i] != c && s[i])
 			i++;
-		res[k] = ft_strndup((char*)s, i);
+		if (!(res[k] = ft_strndup((char*)s, i)))
+			return (NULL);
 		k++;
 		while (*s != c && *s)
 			s++;

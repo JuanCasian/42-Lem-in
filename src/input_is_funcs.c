@@ -60,8 +60,8 @@ int	is_comment(char *str)
 /*
 ** Checks if the string is a known command, commands appear with double ##
 ** Params: String to check
-** Returns: 1 if it is a known command || -1 if it is a unkown command
-** 				|| 0 if it is not a command
+** Returns: 1 if the command is start || -1 if it is a unkown command
+** 				|| 0 if it is not a command || 2 if the command is end
 */
 
 int	is_command(char *str)
@@ -70,8 +70,10 @@ int	is_command(char *str)
 
 	if ((len = ft_strlen(str)) < 2)
 		return (0);
-	if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
+	if (!ft_strcmp(str, "##start"))
 		return (1);
+	if (!ft_strcmp(str, "##end"))
+		return (2);
 	if (str[0] == '#' && str[1] == '#')
 		return (-1);
 	return (0);
