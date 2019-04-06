@@ -117,6 +117,44 @@ static int	create_rooms_ht(t_lem *info)
 }
 
 /*
+** Goes through all the posible nodes and connects them as
+** specified by the input
+** Params: Information structute
+** returns: 1 if all worked || 0 if there was an error
+*/
+
+int			create_links(t_lem *info)
+{
+	t_room 		*A;
+	t_room 		*B;
+	t_node		*input;
+	char		**edge_info;
+	t_edge		*edge;
+
+	input = info->edges->head;
+	while (input)
+	{
+		if (!(edge_info = ft_strsplit(input->val, '-')))
+			return (0);
+		if (!(A = hash_search(info->ht, edge_info[0])) ||
+				!(B = hash_search(info->ht, edge_info[1])))
+			return (0);
+		if (!(edge = new_edge(B)))
+			return (0);
+		if (!A->edges)
+			A->edges = edge;
+		else
+		{
+			edge->next = A->edges;
+			A->edges = edge;
+		}
+		free_split(&edge_info);
+		input = input->next;
+	}
+	return (1);
+}
+
+/*
 ** Reads the input from the standard in and parses it to get the
 ** information required to solve the problem
 ** Params: None
@@ -133,6 +171,8 @@ t_lem		*parse_input(void)
 	if (!get_strings(info) || !(info->edges->head) || !(info->rooms->head))
 		return (NULL);
 	if (!create_rooms_ht(info))
+		return (NULL);
+	if (!create_links(info))
 		return (NULL);
 	hash_display(info->ht);
 	return (info);

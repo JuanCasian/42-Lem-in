@@ -111,7 +111,7 @@ int				hash_insert(t_hash_table *table, char *key, t_room *room)
 ** Returs: the item found || null if the item was not found
 */
 
-t_hash_item		*hash_search(t_hash_table *table, char *key)
+t_room		*hash_search(t_hash_table *table, char *key)
 {
 	unsigned int	index;
 	t_hash_item		*tmp;
@@ -121,7 +121,7 @@ t_hash_item		*hash_search(t_hash_table *table, char *key)
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, key))
-			return (tmp);
+			return (tmp->room);
 		tmp = tmp->next;
 	}
 	return (NULL);

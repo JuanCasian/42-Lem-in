@@ -36,15 +36,16 @@ typedef struct		s_edge
 	struct s_edge	*next;
 }					t_edge;
 
-typedef struct		s_rooom
+typedef struct		s_room
 {
 	char*			name;
 	int				x;
 	int				y;
-	struct t_edge	*edge;
+	struct s_edge	*edges;
 	int				visited;
 	int				selected;
 	struct s_room	*parent;
+	int				ant;
 }					t_room;
 
 typedef struct		s_hash_item
@@ -110,7 +111,7 @@ t_hash_table	*hash_new_table(int size);
 t_hash_item		*hash_new_item(char *key, t_room *room);
 int				hash_insert(t_hash_table *table, char *key, t_room *room);
 void			hash_display(t_hash_table *table);
-t_hash_item		*hash_search(t_hash_table *table, char *key);
+t_room			*hash_search(t_hash_table *table, char *key);
 unsigned int	hash_function(char *key, int size);
 
 /*
@@ -118,5 +119,17 @@ unsigned int	hash_function(char *key, int size);
 */
 
 t_room			*new_room(char *str);
+
+/*
+** Edge functions
+*/
+
+t_edge			*new_edge(t_room *end);
+
+/*
+** Freeing memory functions
+*/
+
+void			free_split(char ***obj);
 
 #endif

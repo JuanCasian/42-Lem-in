@@ -15,6 +15,7 @@
 void	hash_display(t_hash_table *table)
 {
 	t_hash_item *tmp;
+	t_edge		*tmp_e;
 	int			i;
 
 	i = -1;
@@ -26,6 +27,14 @@ void	hash_display(t_hash_table *table)
 			while (tmp)
 			{
 				ft_printf("(index: %i)\t[%s]\t\t%p\n", i, tmp->key, tmp->room);
+				tmp_e = tmp->room->edges;
+				ft_printf("Edges:");
+				while (tmp_e)
+				{
+					ft_printf("\t%p", tmp_e->room);
+					tmp_e = tmp_e->next;
+				}
+				ft_printf("\n\n");
 				tmp = tmp->next;
 			}
 		}

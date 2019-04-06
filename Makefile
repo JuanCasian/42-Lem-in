@@ -31,7 +31,8 @@ FLAGS = -Wall -Werror -Wextra
 
 SRCS =  $(addprefix $(SRCSDIR)/,\
 		lem_in.c parse_input.c lem_struct_funcs.c input_is_funcs.c \
-		linked_funcs.c hash_table.c display_hash.c room_funcs.c) 
+		linked_funcs.c hash_table.c display_hash.c room_funcs.c \
+		free_funcs.c edge_funcs.c) 
 
 LIBFTSRCS = $(addprefix $(LIBFTDIR)/,\
 			checks_after_percentage.c ft_atoi.c ft_bzero.c ft_count_words.c \
