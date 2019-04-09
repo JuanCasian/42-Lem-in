@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node_funcs.c                                       :+:      :+:    :+:   */
+/*   lem_structure.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcasian <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 19:18:27 by jcasian           #+#    #+#             */
-/*   Updated: 2019/03/15 19:18:27 by jcasian          ###   ########.fr       */
+/*   Created: 2019/04/08 18:43:18 by jcasian           #+#    #+#             */
+/*   Updated: 2019/04/08 18:43:18 by jcasian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-** Creates a new node 
-** params: val in void pointer
-** returns: new node <t_node>
-*/
-
-t_node	*new_node(void *val)
+t_lem   *init_lemstruct(void)
 {
-	t_node	*node;
-	if (!(node = (t_node*)malloc(sizeof(t_node))))
-		return (NULL);
-	node->val = val;
-	node->next = NULL;
-	return (node);
+    t_lem   *info;
+
+    if (!(info = (t_lem*)malloc(sizeof(t_lem))))
+        return (NULL);
+    info->n_ants = -1;
+    return (info);
 }

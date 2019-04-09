@@ -13,55 +13,40 @@
 #ifndef LEM_IN_H
 
 # define LEM_IN_H
+# define FD 3
+# define ARR_CAP 16
 
-#include "libft.h"
+# include "libft.h"
 
-typedef struct 		s_node
+typedef struct	s_lem
 {
-	void			*val;
-	struct s_node 	*next;
-}					t_node;
+	int		n_ants;
+}				t_lem;
 
-typedef struct		s_linked
+typedef struct	s_arr
 {
-	t_node			*head;
-	t_node			*tail;
-	int 			len;
-}					t_linked;
-
-typedef struct		s_hash_item
-{
-	char			*key;
-	void			*val;
-}					t_hash_item;
-
-typedef struct		s_hash_table
-{
-	t_hash_item		**items;
-	int				size;
-}					t_hash_table;
+	char	**strs;
+	int		len;
+	int		capacity;
+}				t_arr;
 
 /*
-** hash_table functions
+** Input parsing functions
 */
 
-t_hash_table	*hash_new_table(int size);
-t_hash_item		*hash_new_item();
-int				hash_insert();
-int				hash_delete();
-void			hash_display();
+t_lem				*parse_input(void);
+t_lem				*init_lemstruct(void);
+int					is_comment(char *str);
+int					is_numeric(char *str);
+int					is_command(char *str);
+int					is_room(char *str);
+int					is_link(char *str);
 
 /*
-** Linked list functions
+**	Dynamic array functions
 */
 
-t_node			*new_node(void *val);
-t_linked		*new_linked(void);
-int				add_fnode(t_linked *list, t_node *node);
-int				add_bnode(t_linked *list, t_node *node);
-t_node			*fpop(t_linked *list);
-
-
-void			input(void);
+t_arr				*arr_init(void);
+int					arr_append(t_arr *arr, char *str);
 
 #endif
